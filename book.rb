@@ -1,5 +1,6 @@
 class Book
   attr_accessor :title, :author, :rentals
+
   # belongs to relationship
   # attr_reader :rentals
 
