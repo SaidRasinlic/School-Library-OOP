@@ -74,27 +74,29 @@ class App
   # List all People
   def list_people
     @people.each_with_index do |person, index|
-      # puts "#{index}) Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-      puts "#{index}) [#{person.class.name}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+      puts "#{index}) [#{person.class.name}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}\n\n"
     end
   end
 
   # List all Books
   def action_list_people
     list_people
-    puts "\n\nPress any key to continue"
-    gets
     run
   end
 
   # List all rentals for a given person id.
-  def list_rentals(id)
-    selected_person = @people.find { |person| person.id == id }
-    return nil if selected_person.nil?
-
-    selected_person.rentals.each do |rental|
-      puts "Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}"
+  def list_rental
+    me = nil
+    print "\nID of person: "
+    person_id = gets.chomp
+    @people.each do |x|
+      me = x if x.id == person_id.to_i
     end
+    me.rentals.each do |x|
+      puts x.date
+    end
+    puts
+    run
   end
 
   # Handles creation of a Person (Teacher or Student)
@@ -106,6 +108,7 @@ class App
       create_student
     when '2'
       create_teacher
+    else puts 'Please choose 1 or 2'
     end
     puts "\n*Person created successfully*\n\n"
     # gets
