@@ -7,7 +7,7 @@ class Classroom
     @students = []
   end
 
-  #has many + both ways relationship
+  # has many + both ways relationship
   def add_student(student)
     @students << student
     student.classroom = self
