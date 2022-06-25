@@ -15,26 +15,27 @@ class Main
   capitalized_trimmed_person = TrimmerDecorator.new(capitalized_person)
   p capitalized_trimmed_person.correct_name
 
-# UML Diagram & Relationships Student-Classroom ex.
+  # UML Diagram & Relationships Student-Classroom ex.
   said_rasinlic = Student.new(22, 'Said Rasinlic')
-  classroom_A = Classroom.new('classroom_A')
+  classroom_a = Classroom.new('classroom_A')
 
-  classroom_A.add_student(said_rasinlic)
+  classroom_a.add_student(said_rasinlic)
 
   p said_rasinlic.classroom.label
-  p classroom_A.students.map { |student| student.name }
+  p classroom_a.students.map(&:name)
 
-  # Book Rentals
-  harry_potter = Book.new('Harry Potter', 'J.K. Rowling')
-  pinocchio = Book.new('Pinocchio', 'Carlo Collodi')
+  # Book Rentals, assign them to a variable to use it
+  Book.new('Harry Potter', 'J.K. Rowling')
+  Book.new('Pinocchio', 'Carlo Collodi')
+
   anna_karenina = Book.new('Anna Karenina', 'Leo Tolstoy')
   unique_path = Book.new('Unique Path', 'Said Rasinlic')
-  
-  rental_one = Rental.new('06-24-2022', anna_karenina, said_rasinlic)
-  rental_two = Rental.new('01-14-2000', unique_path, said_rasinlic)
 
-  p said_rasinlic.rentals.map { |rent| [rent.date, rent.book.title] }
+  Rental.new('06-24-2022', anna_karenina, said_rasinlic)
+  Rental.new('01-14-2000', unique_path, said_rasinlic)
+
+  p(said_rasinlic.rentals.map { |rent| [rent.date, rent.book.title] })
   p said_rasinlic.rentals.first.book.author
-  # p anna_karenina.rentals.map { |rent| rent.date } 
+  # p anna_karenina.rentals.map { |rent| rent.date }
   # p said_rasinlic.rentals
 end
