@@ -1,5 +1,6 @@
 class Rental
   attr_accessor :date, :book, :person
+
   # belongs to relationship
   # attr_reader :book, :person
 
