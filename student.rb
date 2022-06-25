@@ -4,8 +4,9 @@ class Student < Person
   # belongs to relationship
   attr_reader :classroom
 
-  def initialize(age, name = 'Unknown', parent_permission: true)
+  def initialize(age, name = 'Unknown', classroom = nil, parent_permission: true)
     super(age, name, parent_permission: parent_permission)
+    @classroom = classroom
   end
 
   # both ways relationship
