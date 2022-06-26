@@ -49,15 +49,13 @@ class App
   # List all books
   def list_books
     @books.each_with_index do |book, index|
-      puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
+      puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}\n\n"
     end
   end
 
   # Action list all Books
   def action_list_books
     list_books
-    puts 'Press enter to continue ...'
-    gets.chomp
     run
   end
 
@@ -84,18 +82,21 @@ class App
     run
   end
 
-  # List all rentals for a given person id.
+  # List all rentals for specified user by id
   def list_rental
-    me = nil
     print "\nID of person: "
-    person_id = gets.chomp
-    @people.each do |x|
-      me = x if x.id == person_id.to_i
+    id = gets.chomp
+    selected_person = @people.find { |person| person.id == id.to_i }
+
+    if selected_person.nil?
+      puts "No ID #{id} has been found"
+      run
     end
-    me.rentals.each do |x|
-      puts x.date
+
+    puts "This person has no rentals\n\n" if selected_person.rentals.length.zero?
+    selected_person.rentals.each do |rental|
+      puts "Date: \"#{rental.date}\", Book: \"#{rental.book.title}\" by #{rental.book.author}"
     end
-    puts
     run
   end
 
@@ -108,7 +109,8 @@ class App
       create_student
     when '2'
       create_teacher
-    else puts 'Please choose 1 or 2'
+    else puts 'Please select 1 or 2'
+         create_person
     end
     puts "\n*Person created successfully*\n\n"
     # gets
