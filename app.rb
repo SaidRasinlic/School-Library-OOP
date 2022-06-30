@@ -12,7 +12,7 @@ class App
   def initialize
     @books = read_books
     @people = read_people
-    @rentals = JSON.parse(File.read('./Data/rental_file.json'))
+    @rentals = JSON.parse(File.read('./data/rental_file.json'))
   end
 
   # Show menu for users
@@ -31,7 +31,7 @@ class App
   # Method that handles user choice
   def run
     user_choice = show_menu
-    # cd Documents/VSCodeProjects/School-Library-OOP
+
     choices = {
       '1' => -> { action_list_books },
       '2' => -> { action_list_people },
@@ -91,17 +91,12 @@ class App
     puts 'No rentals has been made at the moment' if JSON.parse(File.read('./data/rental_file.json')).empty?
     print "\nID of person: "
     id = gets.chomp.to_i
-    # selected_person = @people.find { |person| person.id == id.to_i }
-    selected_person = JSON.parse(File.read('./Data/rental_file.json')).select { |person| person['id'] == id }
+    selected_person = JSON.parse(File.read('./data/rental_file.json')).select { |person| person['id'] == id }
 
-    if selected_person.nil?
-      puts "No ID #{id} has been found"
-      # run
-    end
-    # puts "This person has no rentals\n\n" if selected_person.rentals.length.zero?
+    puts "Person with ID #{id} does not exist.\n\n" if selected_person.empty?
+    
     selected_person.each do |rental|
       puts "Lender: \"#{rental['lender']}\", Date: \"#{rental['date']}\", Book: \"#{rental['title']}\" by \"#{rental['author']}\"\n\n"
-      # puts "Date: \"#{rental.date}\", Book: \"#{rental.book.title}\" by #{rental.book.author}"
     end
     run
   end
@@ -183,7 +178,7 @@ class App
     }
 
     @rentals << temp
-    File.write('./Data/rental_file.json', JSON.generate(@rentals))
+    File.write('./data/rental_file.json', JSON.generate(@rentals))
     puts 'Rental added successfully'
     run
   end
