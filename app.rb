@@ -94,9 +94,10 @@ class App
     selected_person = JSON.parse(File.read('./data/rental_file.json')).select { |person| person['id'] == id }
 
     puts "Person with ID #{id} does not exist.\n\n" if selected_person.empty?
-    
+
     selected_person.each do |rental|
-      puts "Lender: \"#{rental['lender']}\", Date: \"#{rental['date']}\", Book: \"#{rental['title']}\" by \"#{rental['author']}\"\n\n"
+      puts "Lender: \"#{rental['lender']}\", Date: \"#{rental['date']}\", Book: \"#{rental['title']}\"\
+ by \"#{rental['author']}\"\n\n"
     end
     run
   end
