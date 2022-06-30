@@ -1,4 +1,6 @@
+require 'json'
 require_relative 'app'
+require_relative 'storage'
 
 def main
   app = App.new
@@ -6,4 +8,5 @@ def main
   app.run
 end
 
+initialize_files
 main
