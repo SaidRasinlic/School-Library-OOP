@@ -1,14 +1,18 @@
+require 'json'
+require_relative 'storage'
 require_relative 'person'
 require_relative 'teacher'
 require_relative 'student'
 require_relative 'rental'
 require_relative 'book'
 
+# require_relative 'storage'
+
 class App
   def initialize
-    @books = []
-    @people = []
-    @rentals = []
+    @books = read_books
+    @people = read_people
+    @rentals = JSON.parse(File.read('./Data/rental_file.json'))
   end
 
   # Show menu for users
@@ -27,22 +31,21 @@ class App
   # Method that handles user choice
   def run
     user_choice = show_menu
-    case user_choice
-    when '1'
-      action_list_books
-    when '2'
-      action_list_people
-    when '3'
-      create_person
-    when '4'
-      create_book
-    when '5'
-      create_rental
-    when '6'
-      list_rental
+    # cd Documents/VSCodeProjects/School-Library-OOP
+    choices = {
+      '1' => -> { action_list_books },
+      '2' => -> { action_list_people },
+      '3' => -> { create_person },
+      '4' => -> { create_book },
+      '5' => -> { create_rental },
+      '6' => -> { list_rental },
+      '7' => -> { puts 'Thanks for using this app...' }
+    }
+
+    if choices.key?(user_choice)
+      choices[user_choice].call
     else
-      puts 'Thanks for using this app ...'
-      exit
+      choices.default = run
     end
   end
 
@@ -72,7 +75,8 @@ class App
   # List all People
   def list_people
     @people.each_with_index do |person, index|
-      puts "#{index}) [#{person.class.name}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}\n\n"
+      puts "#{index}) [#{person.class.name}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}
+      , Parent Permission: #{person.parent_permission}\n\n"
     end
   end
 
@@ -84,18 +88,20 @@ class App
 
   # List all rentals for specified user by id
   def list_rental
+    puts 'No rentals has been made at the moment' if JSON.parse(File.read('./data/rental_file.json')).empty?
     print "\nID of person: "
-    id = gets.chomp
-    selected_person = @people.find { |person| person.id == id.to_i }
+    id = gets.chomp.to_i
+    # selected_person = @people.find { |person| person.id == id.to_i }
+    selected_person = JSON.parse(File.read('./Data/rental_file.json')).select { |person| person['id'] == id }
 
     if selected_person.nil?
       puts "No ID #{id} has been found"
-      run
+      # run
     end
-
-    puts "This person has no rentals\n\n" if selected_person.rentals.length.zero?
-    selected_person.rentals.each do |rental|
-      puts "Date: \"#{rental.date}\", Book: \"#{rental.book.title}\" by #{rental.book.author}"
+    # puts "This person has no rentals\n\n" if selected_person.rentals.length.zero?
+    selected_person.each do |rental|
+      puts "Lender: \"#{rental['lender']}\", Date: \"#{rental['date']}\", Book: \"#{rental['title']}\" by \"#{rental['author']}\"\n\n"
+      # puts "Date: \"#{rental.date}\", Book: \"#{rental.book.title}\" by #{rental.book.author}"
     end
     run
   end
@@ -127,6 +133,7 @@ class App
     permission = gets.chomp
     student = Student.new(age, name, permission(permission))
     @people.push(student)
+    write_people(@people)
   end
 
   # Create a Teacher
@@ -139,6 +146,7 @@ class App
     specialization = gets.chomp
     teacher = Teacher.new(age, specialization, name)
     @people.push(teacher)
+    write_people(@people)
   end
 
   # Create a book
@@ -149,6 +157,7 @@ class App
     author = gets.chomp
     new_book = Book.new(title, author)
     @books.push(new_book)
+    write_books(@books)
     puts "\n*Book created successfully*\n\n"
     run
   end
@@ -157,14 +166,24 @@ class App
   def create_rental
     puts "\nSelect a book from the following list by number"
     list_books
-    book_index = gets.chomp
+    book_index = gets.chomp.to_i
     puts "\nSelect a person from the following list by number"
     list_people
-    person_index = gets.chomp
+    person_index = gets.chomp.to_i
     print "\n Date(yyyy/mm/dd): "
     rental_date = gets.chomp
-    new_rental = Rental.new(rental_date, @books[book_index.to_i], @people[person_index.to_i])
-    @rentals.push(new_rental)
+    new_rental = Rental.new(rental_date, @books[book_index], @people[person_index])
+
+    temp = {
+      id: new_rental.person.id,
+      lender: new_rental.person.name,
+      date: new_rental.date,
+      title: @books[book_index].title,
+      author: @books[book_index].author
+    }
+
+    @rentals << temp
+    File.write('./Data/rental_file.json', JSON.generate(@rentals))
     puts 'Rental added successfully'
     run
   end
