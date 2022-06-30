@@ -1,0 +1,38 @@
+[
+  {
+    "role": "Student",
+    "name": "Said R.",
+    "age": "22",
+    "parent_permission": true
+  },
+  {
+    "role": "Student",
+    "name": "Emir G.",
+    "age": "22",
+    "parent_permission": false
+  },
+  {
+    "role": "Student",
+    "name": "Lamija R.",
+    "age": "28",
+    "parent_permission": true
+  },
+  {
+    "role": "Teacher",
+    "name": "Prof. Stuart",
+    "age": "55",
+    "specialization": "Vet"
+  },
+  {
+    "role": "Student",
+    "name": "Kevin D.",
+    "age": "29",
+    "parent_permission": true
+  },
+  {
+    "role": "Student",
+    "name": "Jesus C.",
+    "age": "3544",
+    "parent_permission": true
+  }
+]
