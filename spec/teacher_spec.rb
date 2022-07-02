@@ -29,6 +29,5 @@ describe Teacher do
     it 'should always have permission to use services' do
       expect(@teacher.can_use_services?).to be true
     end
-
   end
 end
