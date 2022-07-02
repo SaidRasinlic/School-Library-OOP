@@ -3,14 +3,10 @@
 In this project I will create School Library app where you can: add new students or teachers, add new books, save records of who borrowed a given book and when. I will use UML class diagram and create entities presented by it. While I'm building this Ruby application I will be able to understand more deeply Object-Oriented Programming, Unit Tests (RSpec) and the "Decorator" design pattern.
 
 
-<!--  ## Screenshots
-### Mobile
+## Screenshot
 
-<img align="center" src="./src/assets/images/Covid-19-Mobile.png" alt="IPhone 13 Version" width="340px" /> <img align="right" src="./src/assets/images/Covid-19-II-Mobile.png" alt="IPhone 13 Version" width="340px" />
+![Desktop Snapshot](./assets/images/School-Library-OOP.png)
 
-### Desktop
-![Desktop Snapshot](./src/assets/images/Covid-19-Desktop.png)
--->
 
 ## Built With
 
@@ -21,12 +17,6 @@ In this project I will create School Library app where you can: add new students
 - Git Bash
 - GitHub
 
-
-
-<!-- ## Live Demo
-
-[Netlify Live Demo Link](https://saidrasynl-tracker-covid-19.netlify.app/)
--->
 ## Getting Started
 
 To get a local copy up and running follow these simple example steps.
@@ -35,6 +25,7 @@ To get a local copy up and running follow these simple example steps.
 
 - Laptop or Desktop
 - Web Browser
+- Ruby (installed and set up)
 - IDE (preferably Visual Studio Code)
 - Programming Knowledge
 
