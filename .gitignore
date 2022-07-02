@@ -1,1 +1,4 @@
 code.txt
+string_analyzer.rb
+spec/string_analyzer_spec.rb
+spec/hello_world_spec.rb
