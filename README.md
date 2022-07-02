@@ -17,12 +17,6 @@ In this project I will create School Library app where you can: add new students
 - Git Bash
 - GitHub
 
-
-
-<!-- ## Live Demo
-
-[Netlify Live Demo Link](https://saidrasynl-tracker-covid-19.netlify.app/)
--->
 ## Getting Started
 
 To get a local copy up and running follow these simple example steps.
@@ -31,6 +25,7 @@ To get a local copy up and running follow these simple example steps.
 
 - Laptop or Desktop
 - Web Browser
+- Ruby (installed and set up)
 - IDE (preferably Visual Studio Code)
 - Programming Knowledge
 
